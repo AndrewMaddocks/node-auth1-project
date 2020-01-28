@@ -41,14 +41,7 @@ router.post("/login", (req, res) => {
     .first()
     .then(user => {
       if (user && bc.compareSync(password, user.password)) {
-        // if (user) {
-        // compare().then(match => {
-        //   if (match) {
-        //     // good password
-        //   } else {
-        //     // they don't match
-        //   }
-        // }).catch()
+        req.session.user = user;
         res.status(200).json({ message: `Welcome ${user.username}!` });
       } else {
         res.status(401).json({ message: "You shall not pass!" });
